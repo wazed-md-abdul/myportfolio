@@ -76,14 +76,24 @@ export default function Navbar() {
                 Let's Talk
               </button>
 
-              {/* Mobile Menu Toggle */}
+              {/* Mobile Menu Toggle (Animated Hamburger) */}
               <button 
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden text-slate-400 p-2"
+                className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 relative z-50"
+                aria-label="Toggle Menu"
               >
-                <span className="material-symbols-outlined">
-                  {mobileMenuOpen ? "close" : "menu"}
-                </span>
+                <motion.span
+                  animate={mobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+                  className="w-6 h-0.5 bg-slate-400 rounded-full"
+                />
+                <motion.span
+                  animate={mobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                  className="w-6 h-0.5 bg-slate-400 rounded-full"
+                />
+                <motion.span
+                  animate={mobileMenuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+                  className="w-6 h-0.5 bg-slate-400 rounded-full"
+                />
               </button>
             </div>
           </div>
