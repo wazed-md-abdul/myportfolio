@@ -9,24 +9,10 @@ export default function AntigravityBackground() {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     let animationFrameId;
-
     let particles = [];
-    const particleCount = 100;
     const mouse = { x: null, y: null, radius: 150 };
 
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    window.addEventListener("resize", resize);
-    resize();
-
-    window.addEventListener("mousemove", (e) => {
-      mouse.x = e.x;
-      mouse.y = e.y;
-    });
-
+    // Define Particle class first (Classes are not hoisted)
     class Particle {
       constructor() {
         this.reset();
@@ -45,28 +31,26 @@ export default function AntigravityBackground() {
       }
 
       update() {
-        // Movement logic
         this.x += this.speedX;
         this.y += this.speedY;
 
-        // Reset when off screen
         if (this.y < -10) {
           this.y = canvas.height + 10;
           this.x = Math.random() * canvas.width;
         }
 
-        // Magnetic effect
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
         let distance = Math.sqrt(dx * dx + dy * dy);
-        let forceDirectionX = dx / distance;
-        let forceDirectionY = dy / distance;
-        let maxDistance = mouse.radius;
-        let force = (maxDistance - distance) / maxDistance;
-        let directionX = forceDirectionX * force * this.density;
-        let directionY = forceDirectionY * force * this.density;
-
+        
         if (distance < mouse.radius) {
+          let forceDirectionX = dx / distance;
+          let forceDirectionY = dy / distance;
+          let maxDistance = mouse.radius;
+          let force = (maxDistance - distance) / maxDistance;
+          let directionX = forceDirectionX * force * this.density;
+          let directionY = forceDirectionY * force * this.density;
+          
           this.x += directionX;
           this.y += directionY;
         } else {
@@ -82,23 +66,33 @@ export default function AntigravityBackground() {
       }
 
       draw() {
+        {/* KEYWORD: Particle Color */}
         ctx.fillStyle = `rgba(0, 217, 255, ${this.opacity})`;
         ctx.beginPath();
-        // Capsule shape
         ctx.roundRect(this.x, this.y, this.size, this.size * 3, this.size);
         ctx.fill();
-        
-        // Add glow
         ctx.shadowBlur = 10;
+        {/* KEYWORD: Particle Glow Color */}
         ctx.shadowColor = "rgba(0, 217, 255, 0.5)";
       }
     }
 
+    const getParticleCount = () => {
+      return window.innerWidth < 768 ? 40 : 100;
+    };
+
     const init = () => {
+      const particleCount = getParticleCount();
       particles = [];
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
       }
+    };
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
     };
 
     const animate = () => {
@@ -110,7 +104,19 @@ export default function AntigravityBackground() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    init();
+    window.addEventListener("resize", resize);
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.x;
+      mouse.y = e.y;
+    });
+    window.addEventListener("touchmove", (e) => {
+      if (e.touches.length > 0) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+      }
+    });
+
+    resize();
     animate();
 
     return () => {

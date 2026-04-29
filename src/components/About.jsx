@@ -38,13 +38,16 @@ export default function About() {
             animate: { transition: { staggerChildren: 0.2 } }
           }}
         >
-          <motion.h2 variants={fadeInUp} className="font-headline text-4xl md:text-6xl text-on-background mb-8 font-bold leading-tight">
+          <motion.h2 variants={fadeInUp} className="font-headline text-3xl md:text-6xl text-on-background mb-8 font-bold leading-tight">
+            {/* KEYWORD: About Heading */}
             Pioneering <span className="text-surface-tint underline decoration-surface-tint/30 underline-offset-8">Secure</span> Web Solutions
           </motion.h2>
-          <motion.p variants={fadeInUp} className="text-xl text-on-surface-variant mb-8 leading-relaxed opacity-80">
+          <motion.p variants={fadeInUp} className="text-lg md:text-xl text-on-surface-variant mb-8 leading-relaxed opacity-80">
+            {/* KEYWORD: About Description 1 */}
             I bridge the gap between aesthetic excellence and iron-clad security. My approach is client-centric, focusing on delivering scalable platforms that are architected to withstand the evolving digital landscape.
           </motion.p>
-          <motion.p variants={fadeInUp} className="text-xl text-on-surface-variant mb-12 leading-relaxed opacity-80">
+          <motion.p variants={fadeInUp} className="text-lg md:text-xl text-on-surface-variant mb-12 leading-relaxed opacity-80">
+            {/* KEYWORD: About Description 2 */}
             By integrating DevSecOps principles into the development lifecycle, I ensure every line of code is optimized for performance and hardened against vulnerabilities.
           </motion.p>
 
