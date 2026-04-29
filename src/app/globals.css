@@ -1,26 +1,122 @@
 @import "tailwindcss";
 
+@theme {
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-surface-tint: var(--surface-tint);
+  --color-outline: var(--outline);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-on-surface: var(--on-surface);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-surface: var(--surface);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+  --color-background: var(--background-color);
+  --color-on-background: var(--on-background);
+
+  --font-body: "Manrope", sans-serif;
+  --font-headline: "Space Grotesk", sans-serif;
+
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+
+  --spacing-margin: max(5vw, 40px);
+  --spacing-xs: 0.5rem;
+  --spacing-lg: 4rem;
+  --spacing-gutter: 24px;
+  --spacing-unit: 4px;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Dark Mode (Default) */
+  --on-surface-variant: #bbc9ce;
+  --surface-tint: #00d9ff;
+  --outline: #859398;
+  --surface-container-high: #252a30;
+  --surface-container-low: #171c21;
+  --on-surface: #dee3ea;
+  --surface-container: #1b2025;
+  --surface-container-lowest: #0a0f14;
+  --surface-container-highest: #30353b;
+  --surface: #0f1419;
+  --primary-container: #00d9ff;
+  --on-primary-container: #005b6c;
+  --background-color: #0f1419;
+  --on-background: #dee3ea;
+
+  --app-bg: #0a0f14;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+.light {
+  /* Light Mode Overrides */
+  --on-surface-variant: #40484b;
+  --surface-tint: #00687b;
+  --outline: #70797c;
+  --surface-container-high: #e1e2e4;
+  --surface-container-low: #f3f4f6;
+  --on-surface: #191c1e;
+  --surface-container: #ebecef;
+  --surface-container-lowest: #ffffff;
+  --surface-container-highest: #dadde0;
+  --surface: #f8f9fa;
+  --primary-container: #afecff;
+  --on-primary-container: #001f26;
+  --background-color: #f8f9fa;
+  --on-background: #191c1e;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --app-bg: #f8f9fa;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--app-bg);
+  color: var(--on-background);
+  font-family: var(--font-body);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+.liquid-glass {
+  background: rgba(15, 20, 25, 0.6);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease, border 0.3s ease;
+}
+
+.light .liquid-glass {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.glow-accent {
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.15);
+}
+
+.light .glow-accent {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.neo-glow-border {
+  border: 1px solid #00ffee;
+  box-shadow: 0 0 15px rgba(0, 255, 238, 0.2);
+}
+
+.light .neo-glow-border {
+  border: 1px solid #00687b;
+  box-shadow: none;
+}
+
+.fog-bg {
+  background: radial-gradient(circle at 50% 50%, rgba(0, 217, 255, 0.05) 0%, transparent 70%);
+}
+
+.light .fog-bg {
+  background: radial-gradient(circle at 50% 50%, rgba(0, 104, 123, 0.03) 0%, transparent 70%);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
